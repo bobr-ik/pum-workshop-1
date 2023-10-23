@@ -1,92 +1,92 @@
 # TrainTickets
+## Легенда
+Кассиру в ЖД кассенужна программа, которая бы помогала бы продавать путешественникам билеты на поезд. 
+Кассир вводит в программу начальную и конечную точку маршрута и получает в сообщение о возможных поездах.
+
+## Краткая информация
+	В рамках данного задания практикума вам предстоит реализовать эмулятор кассы по продаже ЖД-билетов в город Маёвск. Данный эмулятор будет работать в терминале и не потребует реализации графического интерфейса. Цель данного практикума — отработать использование принципов ООП.
+## Сроки сдачи
+    Сдать задание необходимо в срок до 9 ноября 2023 (включительно). Задание считается сданным, если его программный код залит в Gitlab и преподавателю выдан доступ к проекту для его проверки.
+## Требования к программе
+### Визуальное оформление
+	В рамках данного задания просьба не тратить время на реализацию графического интерфейса. Когда-то давно, когда не было видеокарт и привычных нам графических интерфейсов, программисты использовали прием, называемый в наше время псевдографикой. Т.е. все, что мы видим на экране, — это символы, напечатанные при помощи функции print(). Если вам сильно хочется “красивости”, просьба воспользоваться именно этим приемам, не прибегая к использованию графических библиотек. Всему свое время.
+### Запуск программы
+    Файл с программой назовите ticket_office.py.
+    Запускаться программа должна следующим образом: python ticket_office.py.
+### Цикл работы программы
+    После запуска программа должна поприветствовать пользователя и кратко объяснить алгоритм взаимодействия, который необходимо выполнить для покупки билета.
+    Далее программа должна вывести список доступных маршрутов. Каждая строка должна содержать номер поезда, время отправления, общее количество свободных мест и минимальную стоимость билета. Список должен быть отсортирован по времени отправления.
+        №        ОТПРАВЛЕНИЕ    СВОБОДНО МЕСТ    ЦЕНА ОТ 
+        3452     13:20          12/40            2000 руб.
+        1212     17:15          26/66            500 руб.
+    Пользователь выбирает номер маршрута и вводит его с клавиатуры.
+    Программа должна вывести детальную информацию об этом маршруте, а именно:
+    Продублировать номер маршрута и время отправления
+    Детальный прайс
+
+    НОМЕР: 1212
+    ОТПРАВЛЕНИЕ: 17:15
+    БИЛЕТЫ:
+    1 - СИДЯЧЕЕ (10/20): 500 руб.
+    2 - ПЛАЦКАРТ (13/18): 1000 руб.
+    3 - КУПЕ (1/24): 2000 руб.
+    4 - СВ (2/4): 5000 руб.
 
 
+    Пользователь вводит с клавиатуры номер, соответствующий типу билета, который он желает приобрести.
+    Далее программа спрашивает учетные данные пассажира (ФИО, номер телефона), которые пользователь вводит с клавиатуры
+    В ответ на это программа выдает ему информацию о приобретенном билете. При этом этиже данные необходимо записать в отдельный файл, имя которого соответствует номеру проданного билета. 
 
-## Getting started
+    ПАССАЖИР: Петров Иван Андреевич, 8 495 234 23 43
+    №      МАРШРУТ    ОТПРАВЛЕНИЕ    ВАГОН    МЕСТО    ЦЕНА
+    256    1212       17:15          6        27       2000 руб.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+    Затем программа должна снова вывести информацию обо всех доступных маршрутах и подготовиться к обслуживанию следующего клиента. Учтите, что только что купленное место должно уменьшить количество доступных на данном маршруте.
+### Структура программы
+    В программе должны быть реализованы следующие классы (их названия должны быть именно такими):
+        TicketOffice — основной класс программы, отвечающий за взаимодействие с пользователем.
+        Route — класс, содержащий два параметра: поезд, который пойдет по маршруту и время отправления.
+        Train — класс, содержащий информацию о поезде. Содержит свойство со списком вагонов.
+        Carriage — класс для хранения информации о вагоне. Этот класс абстрактный, от него следует наследовать вагоны конкретных типов. Содержит одно свойство — список мест. Также содержит переменную класса с ценой места. Для абстрактного вагона ее значение должно быть None.
+        SeatCarriage — класс сидячего вагона. Цена места в данном вагоне 500 руб. Он содержит 60 мест.
+        EconomCarriage — плацкартный вагон. 1000 руб. 30 мест.
+        CoupeCarriage — купе. 2000 руб. 20 мест.
+        FirstClassCarriage — вагон СВ. 5000 руб. 10 мест.
+        Seat — класс места. Содержит один параметр — занятость (True/False).
 
-## Add your files
+### Данные
+    Все иходные данные для работы вышей программы считаюиться из файлов и при необходимости могу быть дополнены сгенерироваными случайным образом путь дополнения файлов с исходными данными (при этом они должны выглядеть правдоподобно). К примеру, в поезде не должно быть 200 вагонов.
+    Постарайтесь подобрать числа таким образом, чтобы отображаемая информация выглядела аккуратно, не вылезала за границы строк.
+    Места и вагоны нумеруйте с единицы, а не с нуля. Номера маршрутов и билетов сделайте многозначными.
+    В каждом поезде должны быть вагоны разных типов (не обязательно всех). Учтите, что это важно при подсчете цены билета в графе “ЦЕНА ОТ”. Также учтите, что места могут заканчиваться, тогда “ЦЕНА ОТ” для данного маршрута изменится.
+### Описание файлов с исходными данными
+    Файл Stations.conf содержит сведенья о возможных местах остановки поездов и имеет следующий вид
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+    0 Тамбов
+    1 Самара
+    ...
+    22 Москва Курская
+    ...
+    24 Санкт-Питербург Московский
+    ...
+     где первая цифра код станции, а вторая ее называние.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.mai.ru/pum24/traintickets.git
-git branch -M main
-git push -uf origin main
-```
+     Route.ini - содержит информацию о доступных маршрутах и поездах на этих маршрутах.
+    [Route]
+     0 = 22-24
+     1 = 24-22
+     ...
+    [Train]
+     1014 = 0
+     2044 = 1
+     ...
+     [Shedule]
+     1014 = Mon 10:00; Wen 21:00
+     2044 = Mon 10:00; Wen 21:00
+     ...
+     где в секции Route значение до равно определяет номер маршрута, а последовательность после равно номера станций в порядке следования; в секции Train значение до равно определяет номер поезда, а после равно маршрут следования; в секции Shedule - значение справа определяет номер поезда, а значение слева от равно оперделяют день недели и время отправления. Время в часах, которое поезд проводит в пути между станциями определяется как разность их номеров. 
+     
+     Таким образом, интерпретировать содержимое файлов нужно следующим образом:
+     Поезд с номером 1014 следует по маршруту Москва Курская - Санкт-Петербург (22-24) и отправляется в понедельник в 10 утра из Москвы и прибывает в Санкт-Петербург в 12 часов дня или в среду в 9 вечера и прибывает в Санкт-Петербург в 11 вечера.
 
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.mai.ru/pum24/traintickets/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
