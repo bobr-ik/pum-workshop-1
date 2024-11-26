@@ -1,11 +1,18 @@
 import config_parse
 
 class TicketOffice:
-    pass
+    def __init__(self):
+        self.routes = []
+    
+    def add_route(self, route_num):
+        self.routes += [Route(route_num)]
 
 
 class Route:
-    pass
+    def __init__(self, route_num):
+        info = config_parse.get_route_info_by_number(route_num)
+        self.stations = info['stations']
+        self.trains = dict(map(lambda x: (Train(int(x[0])), x[1]), info['trains'].items()))
 
 
 class Train:
@@ -13,6 +20,7 @@ class Train:
         self.number = number
         self.carriages = []
         info = config_parse.get_train_carriages_info_by_number(number)
+
         for carriage_type, carriage_count in info['CountCarriages'].items():
             for _ in range(int(carriage_count)):
 
@@ -28,6 +36,7 @@ class Train:
                         new_carriage = CoupeCarriage(seats_count, price)
                     case 'firstclasscarriage':
                         new_carriage = FirstClassCarriage(seats_count, price)
+                
                 self.carriages += [new_carriage]
 
 
@@ -41,6 +50,9 @@ class Carriage:
     def __init__(self, seats_amount=0, price=None):
         self.seats = {i: Seat() for i in range(1, seats_amount + 1)}
         self.price = price 
+    
+    def get_seats_amount(self):
+        return len(self.seats)
     
     def get_free_seats_amount(self):
         coun = 0
