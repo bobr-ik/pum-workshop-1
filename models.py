@@ -12,7 +12,7 @@ class Route:
     def __init__(self, route_num):
         info = config_parse.get_route_info_by_number(route_num)
         self.stations = info['stations']
-        self.trains = dict(map(lambda x: (Train(int(x[0])), x[1]), info['trains'].items()))
+        self.trains = dict(map(lambda x: (Train(int(x[0])), x[1]), info['trains'].items())) #
 
 
 class Train:
