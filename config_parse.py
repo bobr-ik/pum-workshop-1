@@ -29,3 +29,12 @@ def get_route_info_by_number(number):
         'stations': stations,
         'trains': trains
         }
+
+
+def get_routes():
+    project_root = Path(__file__).parent.resolve()
+    config_file_path = project_root / 'config/Route.ini'
+    config = configparser.ConfigParser()
+    config.read(config_file_path)
+
+    return config['Route'].keys()
