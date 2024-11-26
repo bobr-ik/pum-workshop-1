@@ -1,11 +1,14 @@
 import config_parse
 
 class TicketOffice:
-    pass
+    def __init__(self):
+        self.routes = []
 
 
 class Route:
-    pass
+    def __init__(self, train_num, time):
+        self.train = Train(train_num)
+        self.time = time
 
 
 class Train:
@@ -41,6 +44,9 @@ class Carriage:
     def __init__(self, seats_amount=0, price=None):
         self.seats = {i: Seat() for i in range(1, seats_amount + 1)}
         self.price = price 
+    
+    def get_seats_amount(self):
+        return len(self.seats)
     
     def get_free_seats_amount(self):
         coun = 0
